@@ -12,3 +12,4 @@ keymap.set("n", "<C-p>", "<cmd>let @* = expand('%')<cr><esc>")
 
 keymap.set("n", "<tab>", ":tabnext<Return>")
 keymap.set("n", "fg", "$", opts)
+keymap.set("n", "<S-f>", "<cmd>Spectre<cr>", opts)

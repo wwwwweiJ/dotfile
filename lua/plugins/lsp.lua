@@ -15,6 +15,8 @@ return {
         "rubocop",
         "solargraph",
         "json-lsp",
+        "prettier",
+        "vue-language-server",
       })
     end,
   },
@@ -75,6 +77,7 @@ return {
           root_dir = lspconfig.util.root_pattern("Gemfile", ".git", "."),
         },
         html = {},
+        vue = {},
       },
       setup = {
         rust_analyzer = function(_, opts)

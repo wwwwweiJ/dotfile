@@ -6,6 +6,12 @@ return {
     flavour = "mocha",
     opts = {
       transparent_background = true,
+      highlight_overrides = {
+        all = function(colors)
+          return {
+          }
+        end,
+      },
     },
   },
 }
