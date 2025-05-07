@@ -15,15 +15,32 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       background_colour = "#000000",
-      timeout = 500,
+      timeout = 1050,
     },
   },
   {
-    "nvimdev/dashboard-nvim",
-    event = "VimEnter",
+    "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
-      local logo = [[
-        
+      local LazyVim = require("lazyvim.util")
+      opts.sections.lualine_c[4] = {
+        LazyVim.lualine.pretty_path({
+          length = 0,
+          relative = "cwd",
+          modified_h1 = "MatchParen",
+          directory_h1 = "",
+          filename_h1 = "Bold",
+          modified_sign = "",
+          readonly_icon = "📚"
+        })
+      }
+    end
+  },
+  {
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = {
+        preset = {
+          header = [[
 ██╗    ██╗███████╗██╗     ██╗    ██╗  ██╗███████╗██╗   ██╗
 ██║    ██║██╔════╝██║     ██║    ██║  ██║██╔════╝██║   ██║
 ██║ █╗ ██║█████╗  ██║     ██║    ███████║███████╗██║   ██║
@@ -32,10 +49,10 @@ return {
  ╚══╝╚══╝ ╚══════╝╚═╝ ╚════╝     ╚═╝  ╚═╝╚══════╝ ╚═════╝ 
                                                           
 
-      ]]
+      ]],
+                }
+            }
+      }
 
-      logo = string.rep("\n", 8) .. logo .. "\n\n"
-      opts.config.header = vim.split(logo, "\n")
-    end,
   },
 }

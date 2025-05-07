@@ -12,7 +12,6 @@ return {
       },
     },
   },
-
   {
     "echasnovski/mini.hipatterns",
     event = "BufReadPre",
@@ -211,6 +210,12 @@ return {
     opts = {
       current_line_blame = true,
       current_line_blame_formatter = "<author>, <author_time:%Y-%m-%d %H:%M:%S> - <summary>",
+      current_line_blame_opts = {
+        virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+        delay = 500,
+        ignore_whitespace = false,
+        virt_text_priority = 100,
+      },
     },
   },
   {
@@ -224,12 +229,18 @@ return {
       "windwp/nvim-autopairs",
       opts = {},
     },
-    opts = function()
+    opts = function(_, opts)
       local cmp = require("cmp")
       local cmp_autopairs = require("nvim-autopairs.completion.cmp")
       cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+      opts.sources = opts.sources or {}
+      table.insert(opts.sources, {
+        name = "lazydev",
+        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
+      })
     end,
   },
+  { 'echasnovski/mini.nvim', version = false },
   {
     "akinsho/bufferline.nvim",
     event = "VeryLazy",
@@ -286,4 +297,34 @@ return {
       require("syntax-highlighted-cursor").setup()
     end,
   },
+  {
+    "folke/lazydev.nvim",
+    ft = "lua", -- only load on lua files
+    opts = {
+      library = {
+        -- See the configuration section for more details
+        { path = "LazyVim", words = { "LazyVim" } },
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+    enabled = function(root_dir)
+      return vim.g.lazydev_enabled == nil and true or vim.g.lazydev_enabled
+    end,
+  },
+  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
+  {
+		"saghen/blink.cmp",
+		opts = {
+			completion = {
+				menu = {
+					winblend = vim.o.pumblend,
+				},
+			},
+			signature = {
+				window = {
+					winblend = vim.o.pumblend,
+				},
+			},
+		},
+	},
 }

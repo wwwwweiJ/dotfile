@@ -75,6 +75,7 @@ return {
         rubocop = {
           cmd = { "bundle", "exec", "rubocop", "--lsp" },
           root_dir = lspconfig.util.root_pattern("Gemfile", ".git", "."),
+          enabled = formatter == "rubocop" and lsp ~= "solargraph",
         },
         html = {},
         vue = {},
