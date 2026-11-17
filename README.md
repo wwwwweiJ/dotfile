@@ -8,32 +8,32 @@ My macOS setup.
 | `ghostty/` | Ghostty terminal: JetBrains Mono, frosted-glass transparency | `~/Library/Application Support/com.mitchellh.ghostty/config` |
 | `fastfetch/` | Fastfetch with a custom ASCII logo | `~/.config/fastfetch` |
 
-## 換新電腦 / New machine
+## New machine
 
-1. **Clone 並建立 symlink**
+1. **Clone and symlink**
 
    ```sh
    git clone https://github.com/wwwwweiJ/dotfile.git ~/dotfile
    ~/dotfile/install.sh
    ```
 
-   `install.sh` 會把每個資料夾 symlink 到對應位置；原本已經存在的檔案會先改名成 `*.pre-dotfile-<時間>` 備份。重複執行是安全的。
+   `install.sh` symlinks each folder into place. Anything already there is moved aside to `*.pre-dotfile-<timestamp>` first, so re-running it is safe.
 
-2. **打開 nvim**
+2. **Open Neovim**
 
    ```sh
    nvim
    ```
 
-   第一次開啟時，lazy.nvim 會自動安裝插件，Mason 會自動安裝 LSP 和格式化工具（`tree-sitter` CLI 也是由 Mason 安裝）。
-   如果第一次開啟時 Treesitter parser 編譯失敗，等 Mason 裝完後重開 nvim 再執行 `:TSUpdate` 即可。
+   On first launch, lazy.nvim installs the plugins and Mason installs the LSP servers and formatters (including the `tree-sitter` CLI).
+   If Treesitter parsers fail to compile on that first launch, wait for Mason to finish, restart nvim, and run `:TSUpdate`.
 
-3. **（選用）tabline 的 agent 狀態**
+3. **(Optional) Agent status in the tabline**
 
-   要讓 tabline 顯示每個 agent 正在執行 / 等你回覆 / 已完成，需要把 hook 加進 Claude Code（只需要執行一次，不會覆蓋既有的 hook）：
+   To show whether each agent is running, waiting for you, or done, add the hooks to Claude Code. Run this once; it keeps any existing hooks:
 
    ```sh
    ~/.config/nvim/bin/install-agent-hooks
    ```
 
-Neovim 的設計、快捷鍵和驗證方式寫在 [`nvim/CLAUDE.md`](nvim/CLAUDE.md)；在 nvim 裡按 `<leader>?` 可以打開快捷鍵速查頁。
+Design notes, keymaps and how to verify changes are in [`nvim/CLAUDE.md`](nvim/CLAUDE.md). Inside Neovim, press `<leader>?` to open the keymap cheat sheet.
