@@ -1,0 +1,20 @@
+#!/bin/sh
+# Appends Neovim agent-status hooks to ~/.claude/settings.json (keeps Orca's hooks).
+# Safe to re-run: skips if already installed. Backup: settings.json.bak-agent-status
+set -e
+F="$HOME/.claude/settings.json"
+if jq -e '[.. | .command? // empty | select(test("agent-status"))] | length > 0' "$F" >/dev/null; then
+  echo "already installed"; exit 0
+fi
+cp "$F" "$F.bak-agent-status"
+jq '
+  def h(s): {type:"command", command:("\"$HOME/.config/nvim/bin/agent-status\" " + s), timeout:5, async:true};
+  .hooks.UserPromptSubmit = ((.hooks.UserPromptSubmit // []) + [{hooks:[h("running")]}])
+  | .hooks.PostToolUse = ((.hooks.PostToolUse // []) + [{matcher:"*", hooks:[h("running")]}])
+  | .hooks.Notification = ((.hooks.Notification // []) + [{hooks:[h("waiting")]}])
+  | .hooks.Stop = ((.hooks.Stop // []) + [{hooks:[h("done")]}])
+' "$F" > "$F.tmp" && mv "$F.tmp" "$F"
+for e in UserPromptSubmit PostToolUse Notification Stop; do
+  printf "%s: " "$e"; jq -r --arg e "$e" '[.hooks[$e][].hooks[] | select(.command | test("agent-status"))][0].command' "$F"
+done
+echo "done. backup: $F.bak-agent-status"

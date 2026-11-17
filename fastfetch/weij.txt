@@ -1,0 +1,20 @@
+$1     :MMM:               :MMM:
+$1     :MMM:               :MMM:
+$1     :MMM:               :MMM:
+$1     :MMM:               :MMM:
+$1     :MMM:               :MMM:        ,MMMMMMMMM,
+$1     :MMM:               :MMM:        :MMo''''''
+$1     :MMM:      ,o,      :MMM:        :MMo
+$1     :MMM:     :MMM:     :MMM:        :MMo
+$1     :MMM:    :MMMMM:    :MMM:        :MMMMMMMo
+$1     :MMM:   :MMo MMM:   :MMM:        :MMo''''       oMM,
+$1     :MMM:  :MMo   MMM:  :MMM:        :MMo            :MMo
+$1     :MMMo:MMo      MMM::MMM:         :MMo            :MMo           ,MMo
+$1     ',MMMMM,        ,MMMMM,'         :MMo            :MMo            :MMo
+$1        ''             ''             :MMo            :MMo            :MMo
+$1                                      :MMMMMMMMM,     :MMo            :MMo
+$1                                       ''''''''''     :MMo            :MMo
+$1                                                      :MMo            :MMo
+$1                                                       ''     ,oc     :MMo
+$1                                                              :MMoooooMMM,
+$1                                                               ':oooooo:'

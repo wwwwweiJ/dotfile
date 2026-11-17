@@ -1,0 +1,16 @@
+#!/bin/sh
+# Claude Code hook -> writes agent state for Neovim's tabline.
+# usage (from hooks): agent-status running|waiting|done
+# Reads hook JSON on stdin (uses .cwd). Never fails the hook.
+state="$1"
+dir="${XDG_STATE_HOME:-$HOME/.local/state}/nvim/agents"
+input=$(cat)
+cwd=$(printf '%s' "$input" | /usr/bin/jq -r '.cwd // empty' 2>/dev/null)
+[ -z "$cwd" ] && cwd="$PWD"
+mkdir -p "$dir" 2>/dev/null
+id=$(printf '%s' "$cwd" | /usr/bin/shasum | cut -c1-16)
+tmp="$dir/.$id.$$"
+printf '{"cwd":%s,"state":"%s","tool":"claude","ts":%s}\n' \
+  "$(printf '%s' "$cwd" | /usr/bin/jq -Rs .)" "$state" "$(date +%s)" > "$tmp" 2>/dev/null \
+  && mv -f "$tmp" "$dir/$id.json" 2>/dev/null
+exit 0
